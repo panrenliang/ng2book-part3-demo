@@ -6,19 +6,19 @@ import {Component} from 'angular2/core';
  * see https://github.com/gdi2290/es6-promise-loader for more info
  */
 
-console.log('`About` component loaded asynchronously');
+console.log('`Help` component loaded asynchronously');
 
 @Component({
-  selector: 'about',
-  template: `patrick@AngularClass.com`
+  selector: 'help',
+  template: `这里介绍下这个项目`
 })
-export class About {
+export class Help {
   constructor() {
 
   }
 
   ngOnInit() {
-    console.log('hello `About` component');
+    console.log('hello `Help` component');
   }
 
 }

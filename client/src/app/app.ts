@@ -5,9 +5,11 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {FORM_PROVIDERS} from 'angular2/common';
 
-import {RouterActive} from './directives/router-active';
+import {RouterActive} from './common/directives/router-active';
 import {Home} from './home/home';
 
+import {EditPage} from './edit/edit';
+import {MyPage} from './my/my';
 /*
  * App Component
  * Top Level Component
@@ -38,13 +40,16 @@ import {Home} from './home/home';
         <h1>Hello {{ name }}</h1>
         <ul>
           <li router-active>
-            <a [routerLink]=" ['Index'] ">Index</a>
+            <a [routerLink]=" ['Index'] ">首页</a>
           </li>
           <li router-active>
-            <a [routerLink]=" ['Home'] ">Home</a>
+            <a [routerLink]=" ['Edit'] ">创建问卷</a>
           </li>
           <li router-active>
-            <a [routerLink]=" ['About'] ">About</a>
+            <a [routerLink]=" ['My'] ">我的问卷</a>
+          </li>
+          <li router-active>
+            <a [routerLink]=" ['Help'] ">使用帮助</a>
           </li>
         </ul>
       </nav>
@@ -55,7 +60,7 @@ import {Home} from './home/home';
     </main>
 
     <footer>
-      WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
+      广发证券 Angular2 Demo by <a [href]="url">@AngularClass</a>
       <div>
         <img [src]="angularclassLogo" width="10%">
       </div>
@@ -65,8 +70,10 @@ import {Home} from './home/home';
 @RouteConfig([
   { path: '/', component: Home, name: 'Index' },
   { path: '/home', component: Home, name: 'Home' },
+  { path: '/admin/edit', component: EditPage, name: 'Edit' },
+  { path: '/admin/my', component: MyPage, name: 'My' },
   // Async load a component using Webpack's require with es6-promise-loader
-  { path: '/about', loader: () => require('./about/about')('About'), name: 'About' },
+  { path: '/help', loader: () => require('./help/help')('Help'), name: 'Help' },
   { path: '/**', redirectTo: ['Index'] }
 ])
 export class App {

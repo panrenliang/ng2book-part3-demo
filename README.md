@@ -45,6 +45,27 @@ clone自 [angular2-webpack-starter](https://github.com/AngularClass/angular2-web
 - https://github.com/AngularClass/angular2-webpack-starter
 
 
+### 关于测试：
+
+暂时移除 ph
+
+```json
+{
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-webpack": "1.7.0",
+    "ncp": "^2.0.0",
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1",
+    "phantomjs-prebuilt": "^2.1.3",
+    "protractor": "^3.0.0",
+}
+```
+
 ### Caution：
 
 - keep eyes on [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) ，保持更新

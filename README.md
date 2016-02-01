@@ -43,7 +43,64 @@ clone自 [angular2-webpack-starter](https://github.com/AngularClass/angular2-web
 #### Client
 
 - https://github.com/AngularClass/angular2-webpack-starter
+- 样式 Material Design
+    + https://github.com/angular/angular/tree/master/modules/angular2_material 临时，不成熟
 
+    + GIthub15,877 stars https://github.com/Dogfalo/materialize
+    Materialize, a CSS Framework based on Material Design http://materializecss.com
+    http://materializecss.com/collections.html (组件多一些)
+
+    + Google 自己官方的 stars 18,272 Material Design Lite components in html/css/js
+    https://github.com/google/material-design-lite
+    http://getmdl.io/components/index.html#buttons-section
+    http://getmdl.io/templates/index.html
+
+    + 其他选择 https://github.com/muicss/mui 
+
+- SCSS 引入
+这个脚手架本身没有约束用什么less, stylus, scss. 借助webpack我们很容易加载进来：
+
+在 webpack.config.js 中配置 scss-loader:
+npm install sass-loader --save
+
+```js
+{
+  test: /\.scss$/,
+  exclude: /node_modules/,
+  loader: 'raw-loader!sass-loader'
+}
+```
+
+全局样式加载：
+
+```js
+import {ViewEncapsulation} from 'angular2/core';
+
+@Component({
+  selector: 'app',
+  styles: [
+    require('bootstrap.scss')
+  ],
+  encapsulation: ViewEncapsulation.None,
+  template: ``
+})
+class App {}
+```
+
+组件样式加载：
+
+```js
+@Component({
+  styles: [ require('./filename.scss') ],
+})
+```
+
+- materialize 等第三方UI框架引入
+    + 最简单通过外链引入styles,scripts
+    + 通过webpack引入
+        * [webpack integration](https://github.com/Dogfalo/materialize/issues/2661)
+        * [Adding a UI framework](https://github.com/AngularClass/angular2-webpack-starter/issues/199)
+    + 通过root组件引入
 
 ### 关于测试：
 

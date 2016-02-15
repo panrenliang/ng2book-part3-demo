@@ -2,12 +2,12 @@
 <html lang="">
 <head>
 
-  <title>{%= o.webpackConfig.metadata.title %}</title>
+  <title><%= webpackConfig.metadata.title %></title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{%= o.webpackConfig.metadata.title %}">
+  <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
   <!-- use http://www.favicon-generator.org/ to replace files in public/icon-->
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/icon/apple-icon-57x57.png">
@@ -30,14 +30,14 @@
   <!-- end favicon -->
 
   <!-- base url -->
-  <base href="{%= o.webpackConfig.metadata.baseUrl %}">
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
 
   <!-- temp without webpack -->
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
-  {% for (var css in o.htmlWebpackPlugin.files.css) { %}
-  <link href="{%= o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet">
-  {% } %}
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+  <% } %>
 
 </head>
 
@@ -62,15 +62,15 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
-  {% if (o.webpackConfig.metadata.ENV === 'development') { %}
+  <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->
-  <script src="http://{%= o.webpackConfig.metadata.host %}:{%= o.webpackConfig.metadata.port %}/webpack-dev-server.js"></script>
-  {% } %}
+  <script src="http://{%= webpackConfig.metadata.host %}:{%= webpackConfig.metadata.port %}/webpack-dev-server.js"></script>
+  <% } %>
 
   <!-- Webpack HtmlWebpackPlugin manually inject scripts -->
-  {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
-  <script src="{%= o.htmlWebpackPlugin.files.chunks[chunk].entry %}"></script>
-  {% } %}
+  <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+  <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+  <% } %>
 
 </body>
 </html>

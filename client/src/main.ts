@@ -10,9 +10,9 @@ const ENV_PROVIDERS = [];
 
 if ('production' === process.env.ENV) {
   enableProdMode();
-// } else {
-}
+} else {
   ENV_PROVIDERS.push(ELEMENT_PROBE_PROVIDERS);
+}
 
 /*
  * App Component
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function main() {
     ...ROUTER_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy })
   ])
-  .catch(err => console.error(err));
+    .catch(err => console.error(err));
 
 });
 

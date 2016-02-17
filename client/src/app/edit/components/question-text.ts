@@ -10,12 +10,14 @@ import {
   template: `
   <p>文本问题控件 - 问题描述： </p>
   <template [ngIf]="isEdit">
-    文本框大小？！
     <textarea name="question-tx" id="" cols="30" rows="10" [(ngModel)]="description"></textarea>
     <button type="button" (click)="toSave()" class="btn btn-default">保存</button>
   </template>
   <template [ngIf]="!isEdit">
     <p>{{question.question}}</p>
+    <div class="input-field col s12">
+      <textarea placeholder="在这里输入你的反馈" id="textarea1" class="materialize-textarea" length="120"></textarea>
+    </div>
     <button type="button" (click)="isEdit=true" class="btn btn-default">编辑</button>
   </template>
   `

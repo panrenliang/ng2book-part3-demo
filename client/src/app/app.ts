@@ -20,25 +20,13 @@ import {MyPage} from './my/my';
   directives: [ ...ROUTER_DIRECTIVES, RouterActive ],
   pipes: [],
   styles: [`
-    nav ul {
-      display: inline;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 60px;
-    }
-    nav li {
-      display: inline;
-    }
-    nav li.active {
-      background-color: lightgray;
-    }
+
   `],
   template: `
-    <header>
-      <nav>
-        <h1>Hello {{ name }}</h1>
-        <ul>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">{{ name }}</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li router-active>
             <a [routerLink]=" ['Index'] ">首页</a>
           </li>
@@ -52,15 +40,15 @@ import {MyPage} from './my/my';
             <a [routerLink]=" ['Help'] ">使用帮助</a>
           </li>
         </ul>
-      </nav>
-    </header>
+      </div>
+    </nav>
 
     <main>
       <router-outlet></router-outlet>
     </main>
 
     <footer>
-      广发证券 Angular2 Demo by <a [href]="url">@AngularClass</a>
+      广发证券 Angular2 Demo by <a [href]="url">@gf-rd</a>
       <div>
         <img [src]="angularclassLogo" width="10%">
       </div>
@@ -78,8 +66,8 @@ import {MyPage} from './my/my';
 ])
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
+  name = 'Angular DEMO - 问卷系统';
+  url = 'https://github.com/gf-rd';
   constructor() {
 
   }

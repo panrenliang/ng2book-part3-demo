@@ -35,16 +35,15 @@
   <!-- temp without webpack -->
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
-  <% for (var css in htmlWebpackPlugin.files.css) { %>
-  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-  <% } %>
-
 </head>
 
 <body>
 
   <app>
     加载中...
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
   </app>
 
   <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
@@ -64,12 +63,7 @@
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->
-  <script src="http://{%= webpackConfig.metadata.host %}:{%= webpackConfig.metadata.port %}/webpack-dev-server.js"></script>
-  <% } %>
-
-  <!-- Webpack HtmlWebpackPlugin manually inject scripts -->
-  <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-  <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+  <script src="http://<%= webpackConfig.metadata.host %>:<%= webpackConfig.metadata.port %>/webpack-dev-server.js"></script>
   <% } %>
 
 </body>

@@ -27,6 +27,8 @@ export class QuestionControlList implements OnInit {
     this.dataService = dataService;
     this.controls = [
       {type: 'text', label: '文本问题'},
+      {type: 'radio', label: 'Radio 问题'},
+      {type: 'checkbox', label: 'Checkbox 问题'},
       {type: 'score', label: '分值问题'}
     ];
   }

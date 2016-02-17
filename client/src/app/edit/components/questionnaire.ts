@@ -9,11 +9,12 @@ import {DataService} from '../data.service';
 import {QuestionText} from './question-text';
 import {QuestionScore} from './question-score';
 import {QuestionCheckbox} from './question-checkbox';
+import {QuestionRadio} from './question-radio';
 
 @Component({
   inputs: ['naireData'],
   selector: 'questionnaire',
-  directives: [QuestionCheckbox, QuestionScore, QuestionText],
+  directives: [QuestionCheckbox, QuestionScore, QuestionText, QuestionRadio],
   template: `
   问卷详情
   <p>{{naireData.starter}}</p>
@@ -21,8 +22,19 @@ import {QuestionCheckbox} from './question-checkbox';
   <ul>
     <li *ngFor="#q of naireData.questionList" [ngSwitch]="q.type">
       <template [ngSwitchWhen]="'text'">
-        这个是文本问题控件
         <question-text [question]="q"></question-text>
+      </template>
+
+      <template [ngSwitchWhen]="'score'">
+        <question-score [question]="q"></question-score>
+      </template>
+
+      <template [ngSwitchWhen]="'checkbox'">
+        <question-checkbox [question]="q"></question-checkbox>
+      </template>
+
+      <template [ngSwitchWhen]="'radio'">
+        <question-radio [question]="q"></question-radio>
       </template>
       <template ngSwitchDefault>Unknown: {{q.type}}</template>
     </li>

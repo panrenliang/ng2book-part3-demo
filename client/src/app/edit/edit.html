@@ -1,3 +1,25 @@
-<div>
-  <span x-large>这里是问卷编辑页</span>
+<!-- Page Layout here -->
+<div class="row">
+
+  <div class="col s3">
+    <!-- Grey navigation panel -->
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#question-control-list">问题类型</a></li>
+      <li class="tab col s3"><a href="#questionnaire-outline">问卷大纲</a></li>
+    </ul>
+
+    <div id="question-control-list">
+      <question-control-list></question-control-list>
+    </div>
+
+    <div id="questionnaire-outline">
+      <questionnaire-outline [naireData]="dataStore"></questionnaire-outline>
+    </div>
+  </div>
+
+  <div class="col s9">
+    <!-- Teal page content  -->
+    <questionnaire [naireData]="dataStore"></questionnaire>
+  </div>
+
 </div>

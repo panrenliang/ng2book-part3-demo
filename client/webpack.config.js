@@ -58,6 +58,13 @@ module.exports = {
 
       // Support for *.json files.
       { test: /\.json$/,  loader: 'json-loader' },
+      
+      //support for *.scss files.
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader!sass-loader'
+      },
 
       // Support for CSS as raw text
       { test: /\.css$/,   loader: 'raw-loader' },

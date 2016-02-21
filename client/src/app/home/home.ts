@@ -22,7 +22,7 @@ import {XLarge} from './directives/x-large';
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
   // Our list of styles in our component. We may add more to compose many styles together
-  styles: [ require('./home.css') ],
+  styles:[ require('./home.scss.css')],
   // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: require('./home.html')
 })
@@ -36,6 +36,10 @@ export class Home {
 
   ngOnInit() {
     console.log('hello `Home` component');
+    let swiper = new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      paginationClickable: true
+    });
     // this.title.getData().subscribe(data => this.data = data);
   }
 

@@ -20,7 +20,10 @@ import {MyPage} from './my/my';
   directives: [ ...ROUTER_DIRECTIVES, RouterActive ],
   pipes: [],
   styles: [`
-
+    footer {
+      margin: 30px;
+      text-align:center;
+    }
   `],
   template: `
     <nav>

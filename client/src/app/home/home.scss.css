@@ -1,0 +1,18 @@
+
+.home-container {
+
+}
+.swiper-wrapper {
+  height: 450px;
+}
+.swiper-slide .title {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.userCount {
+  width: 70%;
+  margin: 30px;
+}

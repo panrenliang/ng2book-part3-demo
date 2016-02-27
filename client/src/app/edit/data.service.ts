@@ -27,7 +27,8 @@ export class DataService {
   addQuestionTemp(control: any): void {
     this.data.questionList.push({
       type: control.type,
-      question: `这个是${control.label}的描述`
+      //question: `这个是${control.label}的描述`
+      question: ``
     });
   }
 }

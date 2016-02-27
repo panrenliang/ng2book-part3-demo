@@ -5,6 +5,8 @@ import {
   EventEmitter
 } from 'angular2/core';
 
+import { List } from 'immutable';
+
 class QuestionRadioItemModel {
   key: number;
   desc: string;
@@ -25,7 +27,7 @@ class QuestionRadioItemModel {
                         <input placeholder="请填写选项" class="" [(ngModel)] = "item.desc" (change) ="onChange(item.desc)" type="text">
                     </div>
                     <div class="col s2">
-                         <span (click) ="onDelete(item.desc)" style="
+                         <span (click) ="onDelete(item)" style="
                                   height: 50px;
                                   line-height: 50px;
                           ">X</span>
@@ -46,7 +48,7 @@ export class QuestionRadioItem implements OnInit{
   }
 
   onDelete(value){
-    this.delete.next({key:this.item.key,desc:value});
+    this.delete.next(value);
   }
 
   onChange(value){
@@ -87,24 +89,21 @@ export class QuestionRadioItem implements OnInit{
 // <!-- <button (click)="isEdit=true" /> -->
 export class QuestionRadio implements OnInit {
   // thread: Thread;
-  isEdit: boolean = false;
+  isEdit: boolean = true;
   // controls: Array[any];
   description: string;
 
-  //questionRadioItems: Array[];
   index:number = 0;
+  questionRadioItems:List<QuestionRadioItemModel>;
 
   generateIdentity(){
     return this.index++;
   }
 
   constructor() {
-    this.questionRadioItems = [
-      new QuestionRadioItemModel(this.generateIdentity(),''),
-      new QuestionRadioItemModel(this.generateIdentity(),''),
-      new QuestionRadioItemModel(this.generateIdentity(),''),
-      new QuestionRadioItemModel(this.generateIdentity(),'')
-    ];
+    this.questionRadioItems =  List<QuestionRadioItemModel>();
+    this.questionRadioItems = this.questionRadioItems.push(new QuestionRadioItemModel(this.generateIdentity(),""));
+    this.questionRadioItems = this.questionRadioItems.push(new QuestionRadioItemModel(this.generateIdentity(),""));
   }
 
   toSave() {
@@ -113,11 +112,16 @@ export class QuestionRadio implements OnInit {
   }
 
   toAdd() {
-    this.questionRadioItems.push('');
+    this.questionRadioItems = this.questionRadioItems.push(new QuestionRadioItemModel(this.generateIdentity(),""));
   }
 
-  toDelete(e) {
-    let d = e;
+  toDelete(item: QuestionRadioItemModel) {
+    // at least two items
+    if(this.questionRadioItems.size <= 2){
+      return;
+    }
+    this.questionRadioItems = List<QuestionRadioItemModel>
+                                (this.questionRadioItems.filter((i: QuestionRadioItemModel) => i.key != item.key));
   }
 
   ngOnInit(): void {

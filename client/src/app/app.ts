@@ -4,7 +4,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {FORM_PROVIDERS} from 'angular2/common';
-
+import { List, Map } from 'immutable';
 import {RouterActive} from './common/directives/router-active';
 import {Home} from './home/home';
 
@@ -24,11 +24,28 @@ import {MyPage} from './my/my';
       margin: 30px;
       text-align:center;
     }
+
+    .login-model .modal-content .title {
+          text-align:center;
+    }
+
+    .modal-footer {
+      text-align:center;
+    }
+
+    .modal-footer .btn {
+        float:none;
+     }
+
   `],
   template: `
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">{{ name }}</a>
+        <div class="right" style="margin-left: 5rem;margin-right: 2rem;">
+            <a  *ngIf="!isLogin" (click)="openLoginModel()" >登录</a>
+            <div *ngIf="isLogin" ><span>{{user.name}}</span><a href="/"> | 退出</a></div>
+        </div>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li router-active>
             <a [routerLink]=" ['Index'] ">首页</a>
@@ -49,7 +66,28 @@ import {MyPage} from './my/my';
     <main>
       <router-outlet></router-outlet>
     </main>
+  <div id="loginModel" class="modal login-model">
+    <div class="modal-content">
+      <h4 class="title">登录</h4>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="userName" type="text" class="validate" >
+          <label for="userName">用户名</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">密码</label>
+        </div>
+      </div>
 
+    </div>
+    <div class="modal-footer">
+        <button type="button" *ngIf="!isLogin" (click)="loginClick()" class="btn btn-default">登录</button>
+        <button type="button" *ngIf="!isLogin" (click)="cancelLoginClick()" class="btn btn-default">取消</button>
+    </div>
+  </div>
     <footer>
       广发证券 Angular2 Demo by <a [href]="url">@gf-rd</a>
       <div>
@@ -71,9 +109,31 @@ export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular DEMO - 问卷系统';
   url = 'https://github.com/gf-rd';
-  constructor() {
+  isLogin:boolean = false;
 
+  constructor()
+  {
+    this.user = {
+      id:"",
+      name:"用户名"
+    };
   }
+
+
+  openLoginModel(){
+    $('#loginModel').openModal();
+  }
+
+  loginClick(){
+    this.isLogin = true;
+    this.user.key = this.user.name = $("#userName").val();
+    $('#loginModel').closeModal();
+  }
+
+  cancelLoginClick(){
+    $('#loginModel').closeModal();
+  }
+
 }
 
 /*

@@ -19,12 +19,12 @@ class QuestionRadioItemModel {
 @Component({
   selector: 'question-radio-item',
   properties:["item"],
-  events:['delete','change'],
+  events:['delete'],
   template: `
                <div class="radio-item">
                   <div class="row" style="margin-bottom: 0;">
                     <div class="col s6">
-                        <input placeholder="请填写选项" class="" [(ngModel)] = "item.desc" (change) ="onChange(item.desc)" type="text">
+                        <input placeholder="请填写选项" class="" [(ngModel)] = "item.desc"  type="text">
                     </div>
                     <div class="col s2">
                          <span (click) ="onDelete(item)" style="
@@ -40,7 +40,6 @@ export class QuestionRadioItem implements OnInit{
 
   constructor(){
     this.delete = new EventEmitter();
-    this.change = new EventEmitter();
   }
 
   ngOnInit():any {
@@ -50,12 +49,6 @@ export class QuestionRadioItem implements OnInit{
   onDelete(value){
     this.delete.next(value);
   }
-
-  onChange(value){
-    this.change.next({key:this.item.key,desc:value});
-  }
-
-
 }
 
 @Component({
@@ -63,9 +56,9 @@ export class QuestionRadioItem implements OnInit{
   selector: 'question-radio',
   directives:[QuestionRadioItem],
   template: `
-  <p>radio 问题控件 - 问题描述： </p>
   <template [ngIf]="isEdit">
-    <input placeholder="请填写问卷题目" [(ngModel)]="description" type="text">
+     <p>单选题</p>
+     <input placeholder="请填写单选题目" [(ngModel)]="description" type="text">
      <div *ngFor="#item of questionRadioItems">
         <question-radio-item [item]="item" (delete)="toDelete($event)"></question-radio-item>
      </div>
@@ -73,15 +66,11 @@ export class QuestionRadioItem implements OnInit{
     <button (click)="toAdd()" class="btn btn-default">添加选项</button>
   </template>
   <template [ngIf]="!isEdit">
-    <p>{{question.question}}</p>
-    <p>
-      <input name="group1" type="radio" id="test2" />
-      <label for="test2">选择1</label>
-    </p>
-    <p>
-      <input class="with-gap" name="group1" type="radio" id="test3"  />
-      <label for="test3">选择2</label>
-    </p>
+    <p>{{description}}</p>
+     <p *ngFor="#item of questionRadioItems">
+        <input name="group1" type="radio" id="test{{item.key}}"  />
+        <label attr.for="test{{item.key}}">{{item.desc}}</label>
+     </p>
     <button type="button" (click)="isEdit=true" class="btn btn-default">编辑</button>
   </template>
   `
@@ -95,6 +84,7 @@ export class QuestionRadio implements OnInit {
 
   index:number = 0;
   questionRadioItems:List<QuestionRadioItemModel>;
+  private question;
 
   generateIdentity(){
     return this.index++;
@@ -108,7 +98,7 @@ export class QuestionRadio implements OnInit {
 
   toSave() {
     this.isEdit = false;
-    this.question.question = this.description;
+    //this.question.question = this.description;
   }
 
   toAdd() {

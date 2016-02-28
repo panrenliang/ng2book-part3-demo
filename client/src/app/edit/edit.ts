@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-
+import {AuthBase} from '../common/directives/auth';
 import {QuestionControlList} from './components/question-control-list';
 import {QuestionnaireOutline} from './components/questionnaire-outline';
 import {Questionnaire} from './components/questionnaire';
@@ -19,8 +19,9 @@ console.log('`edit` page component loaded asynchronously');
     }
   `]
 })
-export class EditPage {
+export class EditPage extends AuthBase{
   constructor(dataService: DataService) {
+    super();
     this.dataStore = dataService.data;
   }
 

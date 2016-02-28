@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {AuthBase} from '../common/directives/auth';
 
 console.log('`My Page` component loaded asynchronously');
 
@@ -6,9 +7,9 @@ console.log('`My Page` component loaded asynchronously');
   selector: 'my-page',
   template: require('./my.html')
 })
-export class MyPage {
+export class MyPage extends AuthBase{
   constructor() {
-
+    super();
   }
 
   ngOnInit() {

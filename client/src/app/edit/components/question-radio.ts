@@ -64,6 +64,7 @@ export class QuestionRadioItem implements OnInit{
      </div>
     <button (click)="toSave()" class="btn btn-default">保存</button>
     <button (click)="toAdd()" class="btn btn-default">添加选项</button>
+    <button (click)="toDeleteQuestion()" class="btn btn-default">取消</button>
   </template>
   <template [ngIf]="!isEdit">
     <p>{{description}}</p>
@@ -72,6 +73,7 @@ export class QuestionRadioItem implements OnInit{
         <label attr.for="test{{item.key}}">{{item.desc}}</label>
      </p>
     <button type="button" (click)="isEdit=true" class="btn btn-default">编辑</button>
+    <button type="button" (click)="toDeleteQuestion()" class="btn btn-default">删除</button>
   </template>
   `
 })
@@ -112,6 +114,10 @@ export class QuestionRadio implements OnInit {
     }
     this.questionRadioItems = List<QuestionRadioItemModel>
                                 (this.questionRadioItems.filter((i: QuestionRadioItemModel) => i.key != item.key));
+  }
+
+  toDeleteQuestion() {
+
   }
 
   ngOnInit(): void {

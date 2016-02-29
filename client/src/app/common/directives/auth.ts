@@ -41,6 +41,7 @@ export class AuthBase implements OnActivate{
 }
 */
 
+import {LoginPop} from "./login-pop";
 /**
  * 简单版的鉴权基类,现在是直接弹出登录框
  *
@@ -55,7 +56,7 @@ export class AuthBase {
 
   constructor() {
     if(!AuthBase.isLogin){
-      $('#loginModel').openModal();
+      LoginPop.openLoginModel();
     }
   }
 }

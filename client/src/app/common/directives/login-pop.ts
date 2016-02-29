@@ -56,11 +56,12 @@ export class LoginPop{
   ngOnInit() {
   }
 
-  openLoginModel(){
+  static openLoginModel(){
+    $('body').append($('#loginModel'));// append到一级,因为Material样式问题
     $('#loginModel').openModal();
   }
 
-  loginClick(){
+  loginClick(){dd
     this.isLogin = AuthBase.isLogin =  true;
     this.name = AuthBase.user.id = AuthBase.user.name = $("#userName").val();
     $('#loginModel').closeModal();

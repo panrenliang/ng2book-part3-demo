@@ -61,7 +61,7 @@ export class LoginPop{
     $('#loginModel').openModal();
   }
 
-  loginClick(){dd
+  loginClick(){
     this.isLogin = AuthBase.isLogin =  true;
     this.name = AuthBase.user.id = AuthBase.user.name = $("#userName").val();
     $('#loginModel').closeModal();

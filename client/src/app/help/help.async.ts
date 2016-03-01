@@ -3,6 +3,7 @@ import {
   OnInit
 } from 'angular2/core';
 
+import {Accordion, AccordionGroup} from './accordion';
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will wrap the module with a Promise
@@ -14,25 +15,28 @@ console.log('`Help` component loaded asynchronously');
 @Component({
   selector: 'help',
   styles:[ require('./help.scss')],
+  directives: [Accordion, AccordionGroup],
   template: `
     <div class="help-container">
-      <div *ngFor="#item of items">
-         <div class="section">
-            <div class="row">
-              <div class="col s3">
-              <a href="#">
-                     <img src="{{item.icon}}" class="">
-              </a>
+        <accordion [onlyOneOpen] = "true">
+         <accordion-group [heading]="item.text"  *ngFor="#item of items">
+             <div class="section">
+                <div class="row">
+                  <div class="col s3">
+                  <a >
+                    <img src="{{item.icon}}" class="">
+                  </a>
+                    </div>
+                  <div class="col s9">
+                    <h5>{{item.text}}</h5>
+                    <p>{{item.desc}}</p>
+                  </div>
                 </div>
-              <div class="col s9">
-                <h5>{{item.text}}</h5>
-                <p>{{item.desc}}</p>
-              </div>
             </div>
-        </div>
-      <div class="divider"></div>
-      </div>
-    </div>
+            <div class="divider"></div>
+          </accordion-group>
+      </accordion>
+ </div>
   `
 })
 export class Help {
@@ -42,10 +46,10 @@ export class Help {
       {icon:'./assets/img/help/create.jpg',text:'创建问卷',desc:'问卷，共有三种创建问卷的方式让您来选择使用：创建空白问卷、选择问卷模板、文本编辑器，可根据自身的使用习惯，选择最合适的方式来快速创建一份问卷。'},
       {icon:'./assets/img/help/my.jpg',text:'我的问卷',desc:'问卷编辑、预览完成后，一份在线问卷即完成，此时可以通过对问卷的复制、编辑、删除、发布、统计、导出、分享等功能，实现对问卷的全面管理'},
     ];
+
   }
 
   ngOnInit() {
-    console.log('hello `Help` component');
   }
 
 }

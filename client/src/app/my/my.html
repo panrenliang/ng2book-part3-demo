@@ -1,3 +1,23 @@
-<div>
-  <span x-large>这里是我的问卷页</span>
+<div class="row">
+  <div class="col s9">
+    <a class="waves-effect waves-light btn"><i class="material-icons left">add</i>添加问卷</a>
+  </div>
+  <div class="col s3">
+    <a class="waves-effect waves-teal btn-flat"><i class="material-icons left">view_module</i>网格视图</a>
+    <a class="waves-effect waves-teal btn-flat"><i class="material-icons left">view_list</i>列表视图</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s9 lighten-2">
+    <div class="row">
+      <div *ngFor="#questionnaire of questionnaires" class="col s2"
+           [class.selected]="questionnaire===selectedQuestionnaire" (click)="onSelect(questionnaire)">
+        <questionnaire-card [questionnaire]="questionnaire"></questionnaire-card>
+      </div>
+    </div>
+  </div>
+  <div class="col s3">
+    <questionnaire-detail [questionnaire]="selectedQuestionnaire"></questionnaire-detail>
+  </div>
 </div>

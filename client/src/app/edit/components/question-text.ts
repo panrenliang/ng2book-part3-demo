@@ -8,26 +8,28 @@ import {
 @Component({
   selector: 'question-text',
   template: `
-  <p>文本问题控件 - 问题描述： </p>
+  <p>问答题</p>
   <template [ngIf]="isEdit">
-    <textarea name="question-tx" id="" cols="30" rows="10" [(ngModel)]="description"></textarea>
+    <input placeholder="请输入问题" [(ngModel)]="description">
     <button type="button" (click)="toSave()" class="btn btn-default">保存</button>
+    <button type="button" (click)="toCancel()" class="btn btn-default">取消</button>
   </template>
   <template [ngIf]="!isEdit">
-    <p>{{question.question}}</p>
-    <div class="input-field col s12">
-      <textarea placeholder="在这里输入你的反馈" id="textarea1" class="materialize-textarea" length="120"></textarea>
-    </div>
+    <p>{{description}}</p>
+    <input placeholder="请输入问题的答案" [(ngModel)]="answer">
     <button type="button" (click)="isEdit=true" class="btn btn-default">编辑</button>
+    <button type="button" (click)="toDelete()" class="btn btn-default">删除</button>
   </template>
   `
 })
 export class QuestionText implements OnInit {
   @Input() question;
   // thread: Thread;
-  isEdit: boolean = false;
+  isEdit: boolean = true;
   // controls: Array[any];
   description: string;
+
+  answer:string;
 
   constructor() {
   }
@@ -35,6 +37,14 @@ export class QuestionText implements OnInit {
   toSave() {
     this.isEdit = false;
     this.question.question = this.description;
+  }
+
+  toCancel(){
+    this.isEdit = false;
+    this.description = this.question.question;
+  }
+
+  toDelete(){
   }
 
   ngOnInit(): void {

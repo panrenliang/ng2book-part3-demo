@@ -10,6 +10,7 @@ import {Home} from './home/home';
 import  {AuthBase} from './common/directives/auth';
 import {EditPage} from './edit/edit';
 import {MyPage} from './my/my';
+import {CreatePage } from './admin/create';
 import  {LoginPop} from './common/directives/login-pop';
 /*
  * App Component
@@ -36,7 +37,7 @@ import  {LoginPop} from './common/directives/login-pop';
             <a [routerLink]=" ['Index'] ">首页</a>
           </li>
           <li router-active>
-            <a [routerLink]=" ['Edit'] ">创建问卷</a>
+            <a [routerLink]=" ['Create'] ">创建问卷</a>
           </li>
           <li router-active>
             <a [routerLink]=" ['My'] ">我的问卷</a>
@@ -63,6 +64,7 @@ import  {LoginPop} from './common/directives/login-pop';
 @RouteConfig([
   { path: '/', component: Home, name: 'Index' },
   { path: '/home', component: Home, name: 'Home' },
+  { path: '/admin/create', component: CreatePage, name:'Create'},
   { path: '/admin/edit', component: EditPage, name: 'Edit' },
   { path: '/admin/my', component: MyPage, name: 'My' },
   // Async load a component using Webpack's require with es6-promise-loader

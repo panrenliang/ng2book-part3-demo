@@ -3,7 +3,7 @@ import {QuestionComponent} from './question.component';
 
 @Component({
   inputs:['question','isPublished'],
-  outputs:['delQuestionRequest','saveQuestionRequest'],
+  outputs:['delQuestionRequest'],
   selector: 'question-checkbox',
   template: `
   <p>多选题</p>

@@ -3,7 +3,7 @@ import {QuestionComponent} from './question.component';
 
 @Component({
   inputs:['question','isPublished'],
-  outputs:['delQuestionRequest','saveQuestionRequest'],
+  outputs:['delQuestionRequest'],
   selector: 'question-radio',
   template: `
   <p>单选题</p>

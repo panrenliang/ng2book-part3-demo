@@ -4,7 +4,7 @@ import {QuestionComponent} from './question.component';
 
 @Component({
   inputs:['question','isPublished'],
-  outputs:['delQuestionRequest','saveQuestionRequest'],
+  outputs:['delQuestionRequest'],
   selector: 'question-text',
   template: `
   <p>问答题</p>

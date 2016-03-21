@@ -8,7 +8,6 @@ export class QuestionComponent implements OnInit {
   isEdit: boolean = true;
   isPublished:boolean = false;
   delQuestionRequest:EventEmitter<any> = new EventEmitter();
-  saveQuestionRequest:EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -16,7 +15,6 @@ export class QuestionComponent implements OnInit {
   toSave() {
     this.isEdit = false;
     this.question.desc = this.desc;
-    this.saveQuestionRequest.emit(this.question);
   }
 
   toCancel(){

@@ -17,23 +17,19 @@ import { QuestionScoreCmp} from './question.score';
     <ul>
     <li *ngFor="#q of questionnaire.questionList" [ngSwitch]="q.type">
       <template [ngSwitchWhen]="0">
-        <question-text [question] = "q" (delQuestionRequest)="delQuestion($index)"
-        (saveQuestionRequest)="saveQuestion($event)" [isPublished] = "isPublished"></question-text>
+        <question-text [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-text>
       </template>
 
       <template [ngSwitchWhen]="1">
-        <question-radio [question] = "q" (delQuestionRequest)="delQuestion($index)"
-        (saveQuestionRequest)="saveQuestion($event)" [isPublished] = "isPublished"></question-radio>
+        <question-radio [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-radio>
       </template>
 
       <template [ngSwitchWhen]="2">
-         <question-checkbox [question] = "q" (delQuestionRequest)="delQuestion($index)"
-                (saveQuestionRequest)="saveQuestion($event)" [isPublished] = "isPublished"></question-checkbox>
+         <question-checkbox [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-checkbox>
       </template>
 
       <template [ngSwitchWhen]="3">
-        <question-score [question] = "q" (delQuestionRequest)="delQuestion($index)"
-                (saveQuestionRequest)="saveQuestion($event)" [isPublished] = "isPublished"></question-score>
+        <question-score [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-score>
       </template>
       <template ngSwitchDefault>Unknown: {{q.type}}</template>
     </li>
@@ -49,24 +45,12 @@ import { QuestionScoreCmp} from './question.score';
 
 export class QuestionnairePage implements OnInit{
   questionnaire:QuestionnaireModel;
-  title:string;
-  starter:string;
-  ending:string;
-  questionList:QuestionModel[];
   isPublished:boolean = false;
 
   ngOnInit():void{
-    this.title = this.questionnaire.title;
-    this.starter = this.questionnaire.starter;
-    this.ending = this.questionnaire.ending;
-    this.questionList = this.questionnaire.questionList;
   }
 
   delQuestion(index){
     this.questionnaire.questionList.splice(index, 1);
-  }
-
-  saveQuestion(question:QuestionModel){
-    this.questionnaire.questionList.push(question);
   }
 }

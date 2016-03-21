@@ -40,23 +40,33 @@ import { QuestionScoreCmp} from './question.score';
   </ul>
   <br/>
    <p><input placeholder="请输入结束欢迎语" [(ngModel)]="questionnaire.ending"></p>
+
+ <button class="btn waves-effect waves-light" type="submit" name="action">提交
+    <i class="material-icons right">send</i>
+  </button>
   `
 })
 
 export class QuestionnairePage implements OnInit{
   questionnaire:QuestionnaireModel;
+  title:string;
+  starter:string;
+  ending:string;
+  questionList:QuestionModel[];
   isPublished:boolean = false;
 
   ngOnInit():void{
-
+    this.title = this.questionnaire.title;
+    this.starter = this.questionnaire.starter;
+    this.ending = this.questionnaire.ending;
+    this.questionList = this.questionnaire.questionList;
   }
 
   delQuestion(index){
     this.questionnaire.questionList.splice(index, 1);
-    //ToDo(delete)
   }
 
   saveQuestion(question:QuestionModel){
-    //ToDo(save)
+    this.questionnaire.questionList.push(question);
   }
 }

@@ -7,7 +7,7 @@ if ('production' === process.env.ENV) {
   // In production Reflect with es7-reflect-metadata/reflect-metadata is added
 
   // Zone.js
-  require('zone.js/dist/zone-microtask.min');
+  require('zone.js/dist/zone.min');
 
   // RxJS
   // In production manually include the operators you use
@@ -20,16 +20,16 @@ if ('production' === process.env.ENV) {
 
   // by webpack.prod.config ProvidePlugin
   Error['stackTraceLimit'] = Infinity;
-  require('zone.js/dist/zone-microtask');
+  require('zone.js/dist/zone');
   require('zone.js/dist/long-stack-trace-zone');
 
   // RxJS
   // In development we are including every operator
 
   // Observable Operators
-  require('rxjs/add/operator/combineLatest-static');
-  require('rxjs/add/operator/concat-static');
-  require('rxjs/add/operator/merge-static');
+  require('rxjs/add/operator/combineLatest');
+  require('rxjs/add/operator/concat');
+  require('rxjs/add/operator/merge');
   require('rxjs/add/observable/bindCallback');
   require('rxjs/add/observable/defer');
   require('rxjs/add/observable/empty');
@@ -44,7 +44,7 @@ if ('production' === process.env.ENV) {
   require('rxjs/add/observable/range');
   require('rxjs/add/observable/throw');
   require('rxjs/add/observable/timer');
-  require('rxjs/add/operator/zip-static');
+  require('rxjs/add/operator/zip');
 
   // Operators
   require('rxjs/add/operator/buffer');

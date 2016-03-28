@@ -3,6 +3,8 @@ var jsonServer = require('json-server')
 var webshot = require('webshot');
 var fs = require('fs');
 
+var uuid = require('node-uuid');
+
 // Returns an Express server
 var server = jsonServer.create()
 
@@ -30,22 +32,27 @@ function renderQuestionaire(qdata, res) {
   res.end('this is end')
 }
 
-server.get('/questionnaire/:id', function(req, res) {
-  var qdata = db('posts').find({id: +req.params.id})
-  renderQuestionaire(qdata, res) // Todo
-})
-
 server.post('/questionnaire/preview', function(req, res) {
   debugger;
   var qdata = req.body
   renderQuestionaire(qdata, res)
 })
 
+server.get('/questionnaires', function(req, res){
+  var questionnaires = db('questionnaires');
+  res.json({'success':true, data:questionnaires});
+});
+
+server.get('/questionnaire/:id', function(req, res){
+  var questionnaire = db('questionnaires').find({id: req.params.id});
+  res.json({'success':true, data:questionnaire});
+});
+
 server.post('/questionnaire/add', function(req, res){
   var item = req.body;
-  item.id = db('index') + 1;
-  db('questionnaires').push(item);
-  res.json({'success':true});
+  item.id = uuid.v1();
+  var questionnaire = db('questionnaires').push(item);
+  res.json({'success':true, data:questionnaire});
 });
 
 //get questionnaire page thumbnail

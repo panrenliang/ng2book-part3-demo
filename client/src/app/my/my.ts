@@ -9,13 +9,13 @@ console.log('`My Page` component loaded asynchronously');
 
 @Component({
   inputs:['questionnaire'],
+  providers:[QuestionnaireService],
   selector: 'my-page',
   templateUrl: 'app/my/my.html',
   directives:[QuestionnaireCardComponent, QuestionnaireDetailComponent]
 })
 export class MyPage extends AuthBase{
   questionnaires: QuestionnaireModel[];
-  errorMessage:string;
   selectedQuestionnaire:QuestionnaireModel;
   constructor(private _questionnaireService: QuestionnaireService) {
     super();
@@ -25,9 +25,8 @@ export class MyPage extends AuthBase{
     this._questionnaireService.getQuestionnaires()
             .subscribe(
                     questionnaires => this.questionnaires = questionnaires,
-                    error => this.errorMessage = <any>error
+                    error => console.error(error)
             );
-    console.log('get questionnaires');
   }
 
   onSelect(questionnaire:QuestionnaireModel){

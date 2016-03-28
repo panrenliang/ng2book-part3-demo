@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {AuthBase} from '../common/directives/auth';
+import {Router} from 'angular2/router';
 import {QuestionnaireService} from '../services/questionnaire.service';
 import { QuestionType, QuestionModel } from '../models/question.model';
 import { QuestionnaireModel } from '../models/questionnaire.model';
@@ -11,7 +12,7 @@ console.log('`create` page component loaded asynchronously');
 @Component({
   selector: 'create-page',
   template: require('./create.html'),
-  providers:[],
+  providers:[QuestionnaireService],
   directives:[QuestionControlList, QuestionnairePage],
   styles: [`
     .tabs {
@@ -21,7 +22,7 @@ console.log('`create` page component loaded asynchronously');
 })
 export class CreatePage extends AuthBase{
   questionnaire:QuestionnaireModel;
-  constructor(private _questionnaireService:QuestionnaireService) {
+  constructor(private _questionnaireService:QuestionnaireService, private _router:Router) {
     super();
   }
 
@@ -76,13 +77,11 @@ export class CreatePage extends AuthBase{
   }
 
   saveQuestionnaire(questionnaire:QuestionnaireModel){
-    /*let body = JSON.stringify(questionnaire);
-    let headers = new Headers({'Content-Type':'application/json'});
-    let options = new RequestOptions({headers:headers});
-
-    this.http.post('http://localhost:8100/questionnaire/add',body,options)
-            .map(data => console.log(data))
-            .subscribe();*/
+    if(!questionnaire) {return;}
+    this._questionnaireService.addQuestionnaire(questionnaire)
+          .subscribe(
+            questionnaire => this._router.navigate(['Edit', {id:questionnaire.id}]),
+            error=> console.error(error));
   }
 
   ngOnInit() {

@@ -21,7 +21,7 @@ server.get('/custom', function (req, res) { res.json({ msg: 'hello' }) })
 // Todo: using json server export lowdb instance?
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
-//const db = low('db.json', { storage })
+const db = low('db.json', {storage:storage})
 
 function renderQuestionaire(qdata, res) {
   res.write('This will be render by template engine')
@@ -40,6 +40,13 @@ server.post('/questionnaire/preview', function(req, res) {
   var qdata = req.body
   renderQuestionaire(qdata, res)
 })
+
+server.post('/questionnaire/add', function(req, res){
+  var item = req.body;
+  item.id = db('index') + 1;
+  db('questionnaires').push(item);
+  res.json({'success':true});
+});
 
 //get questionnaire page thumbnail
 server.get('/questionnaire/thumbnail/:id', function(req,res){

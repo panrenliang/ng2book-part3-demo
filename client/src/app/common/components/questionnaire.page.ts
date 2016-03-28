@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter } from 'angular2/core';
+import {Http, Response} from 'angular2/http';
 import { QuestionType, QuestionModel } from '../../models/question.model';
 import { QuestionnaireModel } from '../../models/questionnaire.model';
 import { QuestionTextCmp } from './question.text';
@@ -8,6 +9,7 @@ import { QuestionScoreCmp} from './question.score';
 
 @Component({
   inputs:['questionnaire'],
+  outputs:['saveQuestionnaireRequest'],
   selector:'questionnaire-page',
   directives:[QuestionTextCmp, QuestionRadioCmp, QuestionCheckboxCmp, QuestionScoreCmp],
   template:`
@@ -37,7 +39,7 @@ import { QuestionScoreCmp} from './question.score';
   <br/>
    <p><input placeholder="请输入结束欢迎语" [(ngModel)]="questionnaire.ending"></p>
 
- <button class="btn waves-effect waves-light" type="submit" name="action">提交
+ <button class="btn waves-effect waves-light" type="submit" name="action" (click)="toSaveQuestionnaire($event)">提交
     <i class="material-icons right">send</i>
   </button>
   `
@@ -46,8 +48,20 @@ import { QuestionScoreCmp} from './question.score';
 export class QuestionnairePage implements OnInit{
   questionnaire:QuestionnaireModel;
   isPublished:boolean = false;
+  saveQuestionnaireRequest:EventEmitter<any> = new EventEmitter();
+  data:string;
+
+  constructor(private http:Http){}
 
   ngOnInit():void{
+  }
+
+  toSaveQuestionnaire(event:any){
+    this.saveQuestionnaireRequest.emit(this.questionnaire);
+  }
+
+  logError(err) {
+    console.error('There was an error: ' + err);
   }
 
   delQuestion(index){

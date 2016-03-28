@@ -18,7 +18,7 @@
   </div>
 
   <div class="col s9">
-    <questionnaire-page [(questionnaire)]="questionnaire"></questionnaire-page>
+    <questionnaire-page [(questionnaire)]="questionnaire" (saveQuestionnaireRequest)="saveQuestionnaire($event)"></questionnaire-page>
   </div>
 
 </div>

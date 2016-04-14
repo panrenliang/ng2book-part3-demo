@@ -4,14 +4,13 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {FORM_PROVIDERS} from 'angular2/common';
-import { List, Map } from 'immutable';
 import {RouterActive} from './common/directives/router-active';
 import {Home} from './home/home';
-import  {AuthBase} from './common/directives/auth';
+//import  {AuthBase} from './common/directives/auth';
 import {MyPage} from './my/my';
 import {CreatePage } from './admin/create';
 import {EditPage} from './admin/edit';
-import  {LoginPop} from './common/directives/login-pop';
+//import  {LoginPop} from './common/directives/login-pop';
 /*
  * App Component
  * Top Level Component
@@ -19,7 +18,7 @@ import  {LoginPop} from './common/directives/login-pop';
 @Component({
   selector: 'app',
   providers: [ ...FORM_PROVIDERS ],
-  directives: [ ...ROUTER_DIRECTIVES, RouterActive,LoginPop],
+  directives: [ ...ROUTER_DIRECTIVES, RouterActive],
   pipes: [],
   styles: [`
     footer {
@@ -31,7 +30,7 @@ import  {LoginPop} from './common/directives/login-pop';
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">{{ name }}</a>
-        <login-pop></login-pop>
+        <!--<login-pop></login-pop>-->
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li router-active>
             <a [routerLink]=" ['Index'] ">首页</a>

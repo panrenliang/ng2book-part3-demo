@@ -13,12 +13,12 @@
     </div>
 
     <div id="questionnaire-outline">
-      问题列表
+      <questionnaire-outline [questionnaire]="questionnaire"></questionnaire-outline>
     </div>
   </div>
 
   <div class="col s9">
-    <questionnaire-page [(questionnaire)]="questionnaire" (saveQuestionnaireRequest)="saveQuestionnaire($event)"></questionnaire-page>
+    <questionnaire-page [(questionnaire)]="questionnaire" (saveQuestionnaireRequest)="saveQuestionnaire($event)" [isEditPage]="false"></questionnaire-page>
   </div>
 
 </div>

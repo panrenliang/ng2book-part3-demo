@@ -6,7 +6,6 @@ import { QuestionType } from '../../models/question.model';
   outputs:['addQuestionRequest'],
   selector: 'questionnaire-controls',
   template: `
-  问题控件
   <ul>
     <li *ngFor="#q of controls">
       <a href="javascript:;" (click)="addQuestion(q, $event)">{{q.label}}</a>

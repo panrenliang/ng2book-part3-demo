@@ -1,50 +1,52 @@
-import {Component, OnInit} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Component,OnInit} from 'angular2/core';
+import {RouteParams} from 'angular2/router';
 import {QuestionnaireService} from '../services/questionnaire.service';
 import { QuestionType, QuestionModel } from '../models/question.model';
 import { QuestionnaireModel, QuestionnaireState } from '../models/questionnaire.model';
-import {QuestionControlList} from './components/questionnaire.controls';
-import { QuestionnaireOutline } from './components/questionnaire.outline';
 import {QuestionnairePage} from '../common/components/questionnaire.page';
 
-console.log('`create` page component loaded asynchronously');
+console.log('`published` page component loaded asynchronously');
 
 @Component({
-  selector: 'create-page',
-  template: require('./create.html'),
+  selector: 'published-page',
+  template: require('./page.html'),
   providers:[QuestionnaireService],
-  directives:[QuestionControlList, QuestionnaireOutline, QuestionnairePage],
+  directives:[ QuestionnairePage],
   styles: [`
     .tabs {
       overflow: hidden;
     }
   `]
 })
-export class CreatePage implements OnInit{
+export class EditPage implements OnInit{
   questionnaire:QuestionnaireModel;
-  constructor(private _questionnaireService:QuestionnaireService, private _router:Router) {
+  private _id:string;
+  constructor(
+    private _questionnaireService:QuestionnaireService,
+    routeParams:RouteParams) {
+    this._id = routeParams.get('id');
   }
 
   addQuestion(type:QuestionType){
     let question;
     switch(type){
       case QuestionType.Text:
-            question = {
-              id:'',
-              desc:'',
-              type:type,
-              answer:''
-            };
-            break;
+        question = {
+          id:'',
+          desc:'',
+          type:type,
+          answer:''
+        };
+        break;
       case QuestionType.SingleSelect:
-            question = {
-              id:'',
-              desc:'',
-              type:type,
-              options:[{key:0, value:''},{key:1, value:''}],
-              answer:''
-            };
-            break;
+        question = {
+          id:'',
+          desc:'',
+          type:type,
+          options:[{key:0, value:''},{key:1, value:''}],
+          answer:''
+        };
+        break;
       case QuestionType.MultiSelect:
         question = {
           id:'',
@@ -63,13 +65,13 @@ export class CreatePage implements OnInit{
         };
         break;
       default:
-            question = {
-              id:'',
-              desc:'',
-              type:type,
-              answer:''
-            };
-            break;
+        question = {
+          id:'',
+          desc:'',
+          type:type,
+          answer:''
+        };
+        break;
 
     }
     this.questionnaire.questionList.push(question);
@@ -77,11 +79,9 @@ export class CreatePage implements OnInit{
 
   saveQuestionnaire(questionnaire:QuestionnaireModel){
     if(!questionnaire) {return;}
-    questionnaire.state = QuestionnaireState.Edit;
     this._questionnaireService.addQuestionnaire(questionnaire)
-          .subscribe(
-            questionnaire => this._router.navigate(['My']),
-            error=> console.error(error));
+      .subscribe(
+        error=> console.error(error));
   }
 
   ngOnInit() {
@@ -94,5 +94,10 @@ export class CreatePage implements OnInit{
       state: QuestionnaireState.Create,
       questionList:[]
     };
+    this._questionnaireService.getQuestionnaireById(this._id)
+      .subscribe(
+        questionnaire => this.questionnaire = questionnaire,
+        error => console.error(error)
+    );
   }
 }

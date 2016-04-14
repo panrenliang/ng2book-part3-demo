@@ -1,9 +1,8 @@
-import {Component} from 'angular2/core';
-import {AuthBase} from '../common/directives/auth';
+import {Component,OnInit} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {QuestionnaireService} from '../services/questionnaire.service';
 import { QuestionType, QuestionModel } from '../models/question.model';
-import { QuestionnaireModel } from '../models/questionnaire.model';
+import { QuestionnaireModel, QuestionnaireState } from '../models/questionnaire.model';
 import {QuestionControlList} from './components/questionnaire.controls';
 import {QuestionnairePage} from '../common/components/questionnaire.page';
 
@@ -20,14 +19,13 @@ console.log('`edit` page component loaded asynchronously');
     }
   `]
 })
-export class EditPage extends AuthBase{
+export class EditPage implements OnInit{
   questionnaire:QuestionnaireModel;
   private _id:string;
   constructor(
     private _questionnaireService:QuestionnaireService,
     routeParams:RouteParams) {
     this._id = routeParams.get('id');
-    super();
   }
 
   addQuestion(type:QuestionType){
@@ -94,6 +92,7 @@ export class EditPage extends AuthBase{
       title:'',
       starter:'',
       ending:'',
+      state: QuestionnaireState.Create,
       questionList:[]
     };
     this._questionnaireService.getQuestionnaireById(this._id)

@@ -3,7 +3,7 @@ import {Component} from 'angular2/core';
 import {QuestionComponent} from './question.component';
 
 @Component({
-  inputs:['question','isPublished'],
+  inputs:['question','isPublished','isEdit'],
   outputs:['delQuestionRequest'],
   selector: 'question-score',
   template: `

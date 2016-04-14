@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter } from 'angular2/core';
+import { Component, OnChanges, ChangeDetectionStrategy, EventEmitter } from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import { QuestionType, QuestionModel } from '../../models/question.model';
-import { QuestionnaireModel } from '../../models/questionnaire.model';
+import { QuestionnaireModel, QuestionnaireState } from '../../models/questionnaire.model';
 import { QuestionTextCmp } from './question.text';
 import { QuestionRadioCmp} from './question.radio';
 import { QuestionCheckboxCmp} from './question.checkbox';
@@ -19,19 +19,19 @@ import { QuestionScoreCmp} from './question.score';
     <ul>
     <li *ngFor="#q of questionnaire.questionList" [ngSwitch]="q.type">
       <template [ngSwitchWhen]="0">
-        <question-text [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-text>
+        <question-text [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished" [isEdit]="isEdit"></question-text>
       </template>
 
       <template [ngSwitchWhen]="1">
-        <question-radio [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-radio>
+        <question-radio [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished" [isEdit]="isEdit"></question-radio>
       </template>
 
       <template [ngSwitchWhen]="2">
-         <question-checkbox [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-checkbox>
+         <question-checkbox [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished" [isEdit]="isEdit"></question-checkbox>
       </template>
 
       <template [ngSwitchWhen]="3">
-        <question-score [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished"></question-score>
+        <question-score [question] = "q" (delQuestionRequest)="delQuestion($index)" [isPublished] = "isPublished" [isEdit]="isEdit"></question-score>
       </template>
       <template ngSwitchDefault>Unknown: {{q.type}}</template>
     </li>
@@ -45,15 +45,18 @@ import { QuestionScoreCmp} from './question.score';
   `
 })
 
-export class QuestionnairePage implements OnInit{
+export class QuestionnairePage implements OnChanges{
   questionnaire:QuestionnaireModel;
-  isPublished:boolean = false;
+  private isPublished:boolean;
+  private isEdit:boolean;
   saveQuestionnaireRequest:EventEmitter<any> = new EventEmitter();
   data:string;
 
   constructor(private http:Http){}
 
-  ngOnInit():void{
+  ngOnChanges():void{
+    this.isEdit = this.questionnaire.state == QuestionnaireState.Create;
+    this.isPublished = this.questionnaire.state == QuestionnaireState.Published || this.questionnaire.state == QuestionnaireState.Finished;
   }
 
   toSaveQuestionnaire(event:any){

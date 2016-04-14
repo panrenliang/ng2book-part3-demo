@@ -22,7 +22,7 @@ server.get('/custom', function (req, res) { res.json({ msg: 'hello' }) })
 
 // Todo: using json server export lowdb instance?
 const low = require('lowdb')
-const storage = require('lowdb/file-sync')
+const storage = require('lowdb/file-async')
 const db = low('db.json', {storage:storage})
 
 function renderQuestionaire(qdata, res) {
@@ -30,6 +30,15 @@ function renderQuestionaire(qdata, res) {
   res.write('with questionnaire data like below:')
   res.write(JSON.stringify(qdata, null, 2))
   res.end('this is end')
+}
+
+function generateThumbnail(id){
+  webshot('http://localhost:3000/admin/edit/' + id, './public/thumbnails/'+id+'.png', function(err){
+    if(err){
+      console.log('create thumbnail for ' + id + ' failure');
+      console.log(err);
+    }
+  });
 }
 
 server.post('/questionnaire/preview', function(req, res) {
@@ -51,21 +60,22 @@ server.get('/questionnaire/:id', function(req, res){
 server.post('/questionnaire/add', function(req, res){
   var item = req.body;
   item.id = uuid.v1();
-  var questionnaire = db('questionnaires').push(item);
-  res.json({'success':true, data:questionnaire});
+  db('questionnaires').push(item).then(function(){
+    webshot('http://localhost:3000/admin/edit/' + item.id, './public/thumbnails/'+item.id+'.png', function(err){
+      if(err){
+        console.log('create thumbnail for ' + item.id + ' failure');
+        console.log(err);
+        return;
+      }
+
+      res.json({'success':true, data:item});
+    });
+  });
 });
 
 //get questionnaire page thumbnail
 server.get('/questionnaire/thumbnail/:id', function(req,res){
   res.writeHead(200);
-
-  webshot('baidu.com', './public/thumbnails/thumb_'+req.params.id+'.png', function(err){
-    if(err){
-      res.end('create failure');
-    }else{
-      res.end('create success');
-    }
-  });
 })
 
 // Returns an Express router
